@@ -1,0 +1,46 @@
+---
+driver:
+  name: gce
+  project: scenic-block-221016
+  email: hi3unb@gmail.com
+  zone: us-east1-c
+  tags:
+    - dev
+    - test-kitchen
+
+## The forwarded_port port feature lets you connect to ports on the VM guest via
+## localhost on the host.
+## see also: https://docs.vagrantup.com/v2/networking/forwarded_ports.html
+
+#  network:
+#    - ["forwarded_port", {guest: 80, host: 8080}]
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 14.10.9
+
+## require_chef_omnibus specifies a specific chef version to install. You can
+## also set this to `true` to always use the latest version.
+## see also: https://docs.chef.io/config_yml_kitchen.html
+
+#  require_chef_omnibus: 12.8.1
+
+transport:
+  username: ebt
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: windows-2012-r2-dc
+    driver:
+      image_project: windows-cloud
+      image_family: windows-2012-r2
+      disk_size: 50
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
