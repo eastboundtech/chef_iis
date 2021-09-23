@@ -4,3 +4,8 @@
     action :install
   end
 end
+
+
+link "C:\\Epicor\\Prophet21\\Middleware\\Default\\P21API\\shared" do
+ to "C:\\Program Files (x86)\\Activant\\Prophet 21 12.1\\Shared"
+end
